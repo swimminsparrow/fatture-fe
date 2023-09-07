@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ElencoFattureComponent } from './elenco-fatture/elenco-fatture.component';
-import { FiltroFatturePipe } from './elenco-fatture/filtro-fatture.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +19,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   declarations: [
     AppComponent,
     ElencoFattureComponent,
-    FiltroFatturePipe,
     AggiungiFatturaComponent,
     DettaglioFatturaComponent,
     LoginComponent,

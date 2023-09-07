@@ -1,6 +1,3 @@
-/* elenco-fatture.component.css */
-
-/* Style for the filter input and button */
 .filter-container {
   margin-bottom: 20px;
 }
@@ -12,7 +9,6 @@
   margin-left: 10px;
 }
 
-/* Style for the table */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -29,12 +25,10 @@ th {
   background-color: #f2f2f2;
 }
 
-/* Style for table rows on hover */
 tr:hover {
   background-color: #f5f5f5;
 }
 
-/* Style for the filter container */
 .filter-container {
   display: flex;
   align-items: center;
@@ -42,7 +36,6 @@ tr:hover {
   margin-bottom: 20px;
 }
 
-/* Style for the dropdown select */
 .filter-select {
   padding: 8px;
   width: 150px;
@@ -52,7 +45,6 @@ tr:hover {
   outline: none;
 }
 
-/* Style for the filter input fields */
 .filter-input {
   padding: 8px;
   width: 200px;
@@ -61,7 +53,6 @@ tr:hover {
   outline: none;
 }
 
-/* Style for the filter button */
 .filter-button {
   padding: 8px 16px;
   background-color: #007bff;

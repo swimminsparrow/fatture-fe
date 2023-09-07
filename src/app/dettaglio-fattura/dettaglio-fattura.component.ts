@@ -1,4 +1,3 @@
-// invoice-detail.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceService } from '../services/invoices/invoice.service';
