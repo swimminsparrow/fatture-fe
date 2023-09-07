@@ -29,58 +29,18 @@ Il Sistema di Gestione delle Fatture è un'applicazione web sviluppata utilizzan
 
 3. Abilitazione cross-origin
 
-   
-
-### Flusso di Lavoro
-
-1. **Autenticazione Utente**:
-   - Login form.
-   - Il sistema utilizza OAuth 2.0 per convalidare in modo sicuro le credenziali dell'utente
-   - Viene ottenuto un token di accesso al termine del login riuscito (ai fini dell'esercizio esemplificato in localstorage).
-2. **Visualizzazione e Gestione delle Fatture**:
-   - Elenco Fatture
-   - Filtri
-   - visualizzarne i dettagli Fattura.
-   - Aggiungi Fattura.
-3. **Dettagli Fattura e File XML**:
-   - Il Componente Dettagli Fattura fornisce informazioni dettagliate sulle singole fatture.
-   - Gli utenti possono scaricare il file XML associato a una fattura.
-4. **Interazioni con le API**:
-   - I componenti frontend effettuano chiamate API verso il backend per recuperare, creare, aggiornare o 	eliminare fatture.
-   - Queste chiamate sono autenticate utilizzando i token di accesso ottenuti durante il login.
-5. **Filtraggio e Aggiornamento**:
-   - Gli utenti possono applicare 	filtri per cercare fatture specifiche in base a criteri come la 	data e il destinatario.
-   - Il pulsante di Aggiornamento aggiorna l'elenco delle fatture 	per riflettere eventuali modifiche.
-
- 
- 
- 
+    
 
 ###  Autenticazione OAuth 2.0
 
-Il Sistema di Gestione delle Fatture implementa l'autenticazione utilizzando il protocollo OAuth 2.0, che è uno standard aperto per l'autenticazione e l'autorizzazione. Di seguito una spiegazione di come funziona l'autenticazione OAuth 2.0 nel progetto:
+Di seguito una spiegazione per far funzionare l'autenticazione OAuth 2.0 nel progetto:
 
-1. **Registrazione dell'Applicazione**:
-   - Per utilizzare OAuth 2.0, è 	necessario registrare l'applicazione sul lato del server OAuth (nel 	tuo caso, il backend Django).
-   - Durante la registrazione, vengono 	generati un `CLIENT_ID` e un 	`CLIENT_SECRET`. Questi vengono 	utilizzati per identificare l'applicazione client e garantire la 	sicurezza delle comunicazioni.
-2. **Flusso di Autorizzazione**:
-   - Quando un utente tenta di 	accedere all'applicazione, viene reindirizzato alla pagina di 	login.
-   - L'utente inserisce le proprie 	credenziali (username e password) nel Componente di Login.
-3. **Richiesta di Token di Accesso**:
-   - Una volta che l'utente ha fornito 	le credenziali corrette, il sistema effettua una richiesta al 	server OAuth per ottenere un `token di 	accesso`.
-4. **Autenticazione del Client**:
-   - La richiesta di token di accesso 	contiene l'`Authorization Header`, che 	include il `CLIENT_ID` e il 	`CLIENT_SECRET` generati durante la 	registrazione dell'applicazione.
-   - Questa informazione è utilizzata 	per autenticare l'applicazione client presso il server OAuth.
-5. **Generazione del Token di Accesso**:
-   - Dopo aver autenticato 	l'applicazione client, il server OAuth genera un `token 	di accesso`.
-   - Questo token di accesso è un 	token crittograficamente sicuro che rappresenta l'autenticazione 	dell'utente e concede l'accesso a risorse protette.
-6. **Memorizzazione del Token di Accesso**:
-   - Il token di accesso viene 	memorizzato in modo sicuro (ad esempio, in locale) dal frontend. 	Questo permette all'applicazione client di effettuare chiamate API 	successive senza richiedere nuovamente le credenziali dell'utente.
-7. **Chiamate API con Token di Accesso**:
-   - Ogni chiamata API successiva 	effettuata dall'applicazione client include il token di accesso 	nell'`Authorization Header`.
-   - Il server OAuth verifica la 	validità del token di accesso per ogni richiesta e concede 	l'accesso solo se il token è valido.
-8. **Scadenza del Token di Accesso**:
-   - I token di accesso hanno una scadenza. Una volta scaduti, 	l'applicazione client deve ottenere un nuovo token di accesso 	attraverso il processo di autorizzazione.
+Registrazione dell'Applicazione (vedi screen)**:
+
+- È necessario registrare l'applicazione LATO SERVER
+- Durante la registrazione, vengono generati un `CLIENT_ID` e un  `CLIENT_SECRET`
+
+![1](/home/robertocaputo/Documenti/Personal/aruba/fatturearuba_be_bak/help/1.png)
 
  
 
@@ -92,22 +52,38 @@ Prima di iniziare con il backend Django, assicurati di avere Python e pip instal
 
 #### Configurazione del Backend
 
-1. **Clona il Codice Sorgente**: Assicurati di avere il codice sorgente del backend Django sul tuo sistema.
-2. **Configura il Database (Opzionale)**: Se necessario, configura le impostazioni del database nel file `settings.py`.
-3. **Migrazioni del Database**: Esegui le migrazioni del database con il seguente comando:
+1. **Clona il Codice Sorgente**
+
+   ```bash
+   git clone https://github.com/swimminsparrow/fatture-be.git
+   ```
+
+2. Ambiente Virtuale
+
+   ```bash
+   python -m venv myenv
+   source myenv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+   
+
+3. Migrazioni del Database**
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 ```
 
-**Avvio del Server Django**: Avvia il server Django con il seguente comando:
+4. **Avvio del Server Django**
 
 ```
 python manage.py runserver
 ```
 
-Il tuo backend sarà disponibile all'indirizzo http://localhost:8000. 
- 
+collegati all'indirizzo http://localhost:8000. 
+
+
 
 ### Frontend (Angular)
 
@@ -117,31 +93,27 @@ Prima di iniziare con il frontend Angular, assicurati di avere Node.js e npm ins
 
 #### Configurazione del Frontend
 
-1. **Clona il Codice Sorgente**: Assicurati di avere il codice sorgente del frontend Angular sul tuo sistema.
+1. **Clona il Codice Sorgente**: 
 
-2. **Installazione delle Dipendenze**: Esegui il seguente comando per installare le dipendenze del progetto:
+   ```
+   git clone https://github.com/swimminsparrow/fatture-be.git
+   ```
 
    
+
+2. **Installazione delle Dipendenze**
 
 ```
 npm install
 ```
 
-**3. Avvio del Server di Sviluppo**: Avvia il server di sviluppo Angular con il seguente comando:
-
-
+**3. Avvio del Server di Sviluppo**
 
 ```bash
 ng serve
 ```
 
-Il tuo frontend sarà disponibile all'indirizzo http://localhost:4200.
-
-### Accesso all'Applicazione
-
-Dopo aver eseguito il backend e il frontend, apri il tuo browser e vai all'indirizzo http://localhost:4200 per accedere all'applicazione Sistema di Gestione delle Fatture. Sarai reindirizzato alla pagina di login, dove potrai inserire le tue credenziali.
-
-Assicurati di aver configurato correttamente l'autenticazione OAuth 2.0 nel tuo backend Django e di aver registrato l'applicazione client per consentire l'accesso.
+indirizzo http://localhost:4200.
 
 ### Caso D'Uso
 
@@ -193,146 +165,102 @@ Assicurati di aver configurato correttamente l'autenticazione OAuth 2.0 nel tuo 
 
 ```
 
-
-
-# Documentazione delle API per il Progetto di Fatturazione Elettronica
-
-## Introduzione
-
-Questo documento fornisce una panoramica delle API disponibili nel progetto di Fatturazione Elettronica. Le API consentono di interagire con il sistema per gestire le fatture e le notifiche.
-
-## Risorsa "Fatture"
-
-### Endpoint: `/api/invoices/`
-
-- **GET**: Ottiene una lista di tutte le fatture attive nel sistema.
-- **POST**: Crea una nuova fattura attiva.
-- **Esempio di payload JSON per la creazione di una fattura:**
-
-```json
-{
-    "invoice_number": 123,
-    "issue_date": "2023-01-15",
-    "due_date": "2023-02-15",
-    "emitter_full_name": "Nome Emettitore",
-    "destination_full_name": "Nome Destinatario",
-    "total_amount": 100.0,
-    "status": "Inviata",
-    "sdi_identifier": "ABCD1234EFGH5678I"
-}
-```
-
-### Endpoint: `/api/invoices/invoice_number//`
-
-- **GET**: Ottiene i dettagli di una fattura specifica in base al suo numero di fattura.
-
-### Endpoint: `/api/invoices/sdi_identifier//`
-
-- **GET**: Ottiene i dettagli di una fattura specifica in base al suo identificativo SDI.
-
-### Endpoint: `/api/invoices/sdi_identifier//status/`
-
-- **GET**: Ottiene lo stato di una fattura specifica in base al suo identificativo SDI.
-
-### Endpoint: `/api/invoices/xml/`
-
-- **POST**: Crea una nuova fattura e restituisce l'XML corrispondente.
-
-### Endpoint: `/api/invoices/xml/sdi_identifier//`
-
-- **GET**: Ottiene l'XML di una fattura specifica in base al suo identificativo SDI.
-
-## Risorsa "Notifiche"
-
-### Endpoint: `/api/notifications/`
-
-- **GET**: Ottiene una lista di tutte le notifiche nel sistema.
-
-### Endpoint: `/api/notifications//`
-
-- **GET**: Ottiene i dettagli di una notifica specifica in base al suo ID.
+# API
 
 ## Autenticazione
 
-Le API utilizzano l'autenticazione OAuth2. Per accedere alle API, è necessario ottenere un token di accesso valido e includerlo nell'header "Authorization" di ogni richiesta.
+### Login
+- **URL**: `{{host}}/o/token/`
+- **Metodo**: POST
+- **Richiesta**:
+  - `username` (stringa)
+  - `password` (stringa)
+  - `grant_type` (stringa)
+- **Descrizione**: Endpoint per l'autenticazione e il recupero del token di accesso.
 
-## Esempi di Uso
+## Fatture
 
-### Ottieni una lista di fatture attive
+### Ottieni Tutte le Fatture
+- **URL**: `{{api}}/invoices/`
+- **Metodo**: GET
+- **Autenticazione**: Token di Accesso Bearer
+- **Descrizione**: Ottiene l'elenco di tutte le fatture presenti nel sistema.
 
-**Richiesta:**
-
-```
-bash
-GET /api/invoices/
-```
-
-**Header:**
-
-```
-makefile
-Authorization: Bearer <your-access-token>
-```
-
-**Risposta:**
-
-```
-css
-200 OK
-[    {        "invoice_number": 123,        "issue_date": "2023-01-15",        "due_date": "2023-02-15",        "emitter_full_name": "Nome Emettitore",        "destination_full_name": "Nome Destinatario",        "total_amount": 100.0,        "status": "Inviata",        "sdi_identifier": "ABCD1234EFGH5678I"    },    {        ...    }]
-```
-
-### Crea una nuova fattura attiva
-
-**Richiesta:**
-
-```
-bash
-POST /api/invoices/
-```
-
-**Header:**
-
-```
-makefile
-Authorization: Bearer <your-access-token>
-```
-
-**Payload JSON:**
-
-```
-json
-{
-    "invoice_number": 124,
-    "issue_date": "2023-02-15",
-    "due_date": "2023-03-15",
-    "emitter_full_name": "Nuovo Nome Emettitore",
-    "destination_full_name": "Nuovo Nome Destinatario",
-    "total_amount": 150.0,
+### Crea Fattura
+- **URL**: `{{api}}/invoices/`
+- **Metodo**: POST
+- **Autenticazione**: Token di Accesso Bearer
+- **Richiesta**:
+  ```json
+  {
+    "issue_date": "YYYY-MM-DD",
+    "due_date": "YYYY-MM-DD",
+    "emitter_full_name": "John Doe",
+    "emitter_email": "john@example.com",
+    "destination_full_name": "Alice Smith",
+    "destination_email": "alice@example.com",
+    "total_amount": 100.50,
     "status": "Inviata",
-    "sdi_identifier": "EFGH5678ABCD1234I"
-}
-```
+    "emitter_user": 1,
+    "destination_user": 2
+  }
+  ```
+- **Descrizione**: Crea una nuova fattura con i dettagli forniti.
 
-**Risposta:**
+### Ottieni Fattura per ID
+- **URL**: `{{api}}/invoices/invoice_number/{invoice_number}`
+- **Metodo**: GET
+- **Autenticazione**: Token di Accesso Bearer
+- **Descrizione**: Ottiene i dettagli di una fattura specificata per numero di fattura.
 
-```
-json
-201 Created
-{
-    "invoice_number": 124,
-    "issue_date": "2023-02-15",
-    "due_date": "2023-03-15",
-    "emitter_full_name": "Nuovo Nome Emettitore",
-    "destination_full_name": "Nuovo Nome Destinatario",
-    "total_amount": 150.0,
-    "status": "Inviata",
-    "sdi_identifier": "EFGH5678ABCD1234I"
-}
-```
+### Aggiorna Fattura per ID
+- **URL**: `{{api}}/invoices/invoice_number/{invoice_number}`
+- **Metodo**: PATCH
+- **Autenticazione**: Token di Accesso Bearer
+- **Richiesta**:
+  ```json
+  {
+    "sdi_identifier": "test2"
+  }
+  ```
+- **Descrizione**: Aggiorna il campo identificativo SDI di una fattura.
+
+### Ottieni XML della Fattura per ID
+- **URL**: `{{api}}/invoices/xml/invoice_number/{invoice_number}`
+- **Metodo**: GET
+- **Autenticazione**: Token di Accesso Bearer
+- **Descrizione**: Ottiene il file XML associato a una fattura.
+
+### Carica XML per Fattura per ID
+- **URL**: `{{api}}/invoices/xml/invoice_number/{invoice_number}`
+- **Metodo**: POST
+- **Autenticazione**: Token di Accesso Bearer
+- **Richiesta**: Form Data (xml_file)
+- **Descrizione**: Carica un nuovo file XML per la fattura specificata.
+
+### Ottieni Stato della Fattura per Identificativo SDI
+- **URL**: `{{api}}/invoices/sdi_identifier/{sdi_identifier}/status/`
+- **Metodo**: GET
+- **Autenticazione**: Token di Accesso Bearer
+- **Descrizione**: Ottiene lo stato corrente di una fattura in base all'identificativo SDI.
+
+### Ottieni Fattura per Identificativo SDI
+- **URL**: `{{api}}/invoices/sdi_identifier/{sdi_identifier}`
+- **Metodo**: GET
+- **Autenticazione**: Token di Accesso Bearer
+- **Descrizione**: Ottiene i dettagli di una fattura in base all'identificativo SDI.
+
+
 
 ## Note Aggiuntive
 
 - Per autenticarsi e ottenere un token di accesso, è possibile utilizzare il flusso OAuth2 con le credenziali appropriate.
 - Assicurarsi di includere il token di accesso nell'header "Authorization" di ogni richiesta alle API.
 - Per ulteriori dettagli sulle richieste e sulle risposte, consultare la documentazione specifica delle API.# fatture-be
+
+## Alcuni Limiti
+
+- Attualmente, l'applicativo non supporta la definizione e la gestione di ruoli utente. Questo significa che tutti gli utenti hanno accesso alle stesse funzionalità, senza distinzioni di privilegi.
+- L'applicativo non dispone di un meccanismo di indicizzazione per le fatture.
+- Nella presente implementazione, i due microservizi di autenticazione e gestione delle fatture sono combinati in un unico.
+- Modulare le componenti del backend: L'attuale struttura del backend non prevede una suddivisione modulare delle views, dei modelli e dei serializzatori in file separati. Questa mancanza di modularità potrebbe rendere più difficile la manutenzione e l'estensione del codice nel tempo.
