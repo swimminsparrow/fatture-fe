@@ -1,0 +1,120 @@
+<!-- Input di ricerca separati per ciascuna colonna -->
+<div class="row">
+    <div class="colonna-filtri">
+        <form [formGroup]="filterForm">
+            <!-- First Row -->
+            <div class="row">
+                <div class="col">
+                    <label for="filtroNumero">Numero:</label>
+                    <input id="filtroNumero" class="filter-input" type="text" formControlName="numero">
+                </div>
+                <div class="col">
+                    <label for="filtroSDI">SDI:</label>
+                    <input id="filtroSDI" class="filter-input" type="text" formControlName="sdi">
+                </div>
+                <div class="col">
+                    <label for="filtroDestinatario">Destinatario:</label>
+                    <input id="filtroDestinatario" class="filter-input" type="text" formControlName="destinatario">
+                </div>
+            </div>
+            <!-- Second Row -->
+            <div class="row">
+                <!--                 <div class="col">
+                    <label for="filtroDataEmissione">Data Emissione:</label>
+                    <mat-form-field>
+                        <input id="filtroDataEmissione" matInput [matDatepicker]="datePicker"
+                            formControlName="dataEmissione"
+                            [value]="filterForm.get('dataEmissione')?.value | date:'dd-MM-yyyy'"
+                            (dateChange)="onDateChange('dataEmissione', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datePicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <label for="filtroDataScadenza">Data Scadenza:</label>
+                    <mat-form-field>
+                        <input id="filtroDataScadenza" matInput [matDatepicker]="datePicker2"
+                            formControlName="dataScadenza"
+                            [value]="filterForm.get('dataScadenza')?.value | date:'dd-MM-yyyy'">
+                        <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+                        <mat-datepicker #datePicker2></mat-datepicker>
+                    </mat-form-field>
+                </div> -->
+                <div class="col">
+
+                    <label for="filtroDate">Data Emissione-Scadenza:</label>
+                    <mat-form-field id="filtroDate">
+                        <mat-label>Data Emissione-Scadenza</mat-label>
+                        <mat-date-range-input [rangePicker]="dateRangePicker">
+                            <input matStartDate placeholder="Start date" formControlName="start">
+                            <input matEndDate placeholder="End date" formControlName="end">
+                        </mat-date-range-input>
+                        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="dateRangePicker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #dateRangePicker></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row-right">
+    <form [formGroup]="filterForm">
+        <div class="card-container">
+            <button class="card card-small" tabindex="0" (click)="applicaFiltro()">
+                <mat-icon>search</mat-icon>
+                <span>Applica Filtri</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="row-right">
+    <div class="card-container">
+        <button class="card card-small" tabindex="0" (click)="navigateToAggiungiFattura()">
+            <mat-icon>add</mat-icon>
+            <span>Aggiungi Fattura</span>
+        </button>
+        <button class="card card-small" tabindex="1" (click)="refreshInvoices()">
+            <mat-icon>refresh</mat-icon>
+            <span>Aggiorna Lista</span>
+        </button>
+    </div>
+</div>
+
+
+
+
+<!-- Tabella delle fatture -->
+<table>
+    <thead>
+        <tr>
+            <th>Numero Fattura</th>
+            <th>Data Emissione</th>
+            <th>Data Scadenza</th>
+            <th>Emitente</th>
+            <th>Destinatario</th>
+            <th>Importo</th>
+            <th>Stato</th>
+            <th>Identificativo SDI</th>
+            <!-- <th>XML File</th> -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let fattura of fatture">
+            <td (click)="navigateToDettaglioFattura(fattura.invoice_number)"><a
+                    [routerLink]="['/dettaglio-fattura', fattura.invoice_number]">{{ fattura.invoice_number }}</a></td>
+            <td>{{ fattura.issue_date | date:'dd-MM-yyyy' }}</td>
+            <td>{{ fattura.due_date | date:'dd-MM-yyyy' }}</td>
+            <td>{{ fattura.emitter_full_name }}</td>
+            <td>{{ fattura.destination_full_name }}</td>
+            <td>{{ fattura.total_amount }}</td>
+            <td>{{ fattura.status }}</td>
+            <td>{{ fattura.sdi_identifier }}</td>
+            <!-- <td (click)="getXmlFileUrl(fattura.invoice_number)">
+                <a>Download XML</a>
+            </td> -->
+        </tr>
+    </tbody>
+</table>

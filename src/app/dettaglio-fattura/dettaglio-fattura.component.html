@@ -1,0 +1,21 @@
+<div *ngIf="invoice">
+    <h2>invoice Details</h2>
+    <p><strong>invoice Number:</strong> {{ invoice.invoice_number }}</p>
+    <p><strong>Issue Date:</strong> {{ invoice.issue_date }}</p>
+    <p><strong>Due Date:</strong> {{ invoice.due_date }}</p>
+    <p><strong>Emitter Full Name:</strong> {{ invoice.emitter_full_name }}</p>
+
+    <div>
+        <label for="sdiIdentifier">SDI Identifier:</label>
+        <input type="text" id="sdiIdentifier" [(ngModel)]="invoice.sdi_identifier">
+
+        <div class="row-right">
+            <div class="card-container">
+                <button type="submit" class="card card-small" (click)="updateSDIIdentifier()">
+                    <mat-icon>send</mat-icon>
+                    <span>Invia</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
